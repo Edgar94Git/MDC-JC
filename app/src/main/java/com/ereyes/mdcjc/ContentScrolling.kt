@@ -8,12 +8,15 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.ereyes.mdcjc.ui.theme.MDCJCTheme
 
 /****
@@ -30,6 +33,7 @@ fun ContentPreview() {
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun Content(modifier: Modifier = Modifier) {
     Column(
@@ -42,13 +46,23 @@ fun Content(modifier: Modifier = Modifier) {
                 .padding(8.dp)
         ) {
             Column {
-                Image(
+                var urlValue by remember { mutableStateOf("") }
+                /*Image(
                     painter = painterResource(id = R.drawable.ic_shop),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(dimensionResource(id = R.dimen.card_imf_cover_heigth))
                         .background(colorResource(id = R.color.teal_200))
+                )*/
+                GlideImage(
+                    model = urlValue, 
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(dimensionResource(id = R.dimen.card_imf_cover_heigth))
+                        .background(colorResource(id = R.color.teal_200)),
+                    contentScale = ContentScale.Crop
                 )
                 Text(
                     text = stringResource(id = R.string.card_title),
@@ -57,7 +71,6 @@ fun Content(modifier: Modifier = Modifier) {
                         .padding(dimensionResource(id = R.dimen.common_margin_default)),
                     style = MaterialTheme.typography.h5
                 )
-                var urlValue by remember { mutableStateOf("") }
                 OutlinedTextField(
                     value = urlValue,
                     onValueChange = { text -> urlValue = text},
