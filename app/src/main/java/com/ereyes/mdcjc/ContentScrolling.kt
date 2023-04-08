@@ -5,8 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
@@ -14,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ereyes.mdcjc.ui.theme.MDCJCTheme
@@ -51,6 +51,37 @@ fun Content(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .height(dimensionResource(id = R.dimen.card_imf_cover_heigth))
                         .background(colorResource(id = R.color.teal_200))
+                )
+                Text(
+                    text = stringResource(id = R.string.card_title),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(dimensionResource(id = R.dimen.common_margin_default)),
+                    style = MaterialTheme.typography.h5
+                )
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = {},
+                    label = {
+                        Text(text = stringResource(id = R.string.card_input_url))
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = dimensionResource(id = R.dimen.common_margin_default),
+                            start = dimensionResource(id = R.dimen.common_margin_default),
+                            end = dimensionResource(id = R.dimen.common_margin_default)
+                        ),
+                    singleLine = true
+                )
+                Text(
+                    text = stringResource(id = R.string.card_required),
+                    style = MaterialTheme.typography.caption,
+                    color = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
+                    modifier = Modifier.padding(
+                        start = dimensionResource(id = R.dimen.common_padding_default),
+                        top = dimensionResource(id = R.dimen.common_margin_micro)
+                    )
                 )
             }
         }
