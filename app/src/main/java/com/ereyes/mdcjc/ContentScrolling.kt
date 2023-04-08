@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -59,9 +57,10 @@ fun Content(modifier: Modifier = Modifier) {
                         .padding(dimensionResource(id = R.dimen.common_margin_default)),
                     style = MaterialTheme.typography.h5
                 )
+                var urlValue by remember { mutableStateOf("") }
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = urlValue,
+                    onValueChange = { text -> urlValue = text},
                     label = {
                         Text(text = stringResource(id = R.string.card_input_url))
                     },
@@ -79,7 +78,7 @@ fun Content(modifier: Modifier = Modifier) {
                     style = MaterialTheme.typography.caption,
                     color = MaterialTheme.colors.onSurface.copy(alpha = ContentAlpha.medium),
                     modifier = Modifier.padding(
-                        start = dimensionResource(id = R.dimen.common_padding_default),
+                        start = dimensionResource(id = R.dimen.common_padding_max),
                         top = dimensionResource(id = R.dimen.common_margin_micro)
                     )
                 )
