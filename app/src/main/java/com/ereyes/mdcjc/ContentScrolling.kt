@@ -32,6 +32,5 @@ fun Content(modifier: Modifier = Modifier) {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .background(Color.Cyan)
     )
 }
