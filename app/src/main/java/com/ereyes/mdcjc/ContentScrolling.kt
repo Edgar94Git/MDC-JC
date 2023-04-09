@@ -1,19 +1,21 @@
 package com.ereyes.mdcjc
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -85,7 +87,17 @@ fun Content(modifier: Modifier = Modifier) {
                             start = dimensionResource(id = R.dimen.common_margin_default),
                             end = dimensionResource(id = R.dimen.common_margin_default)
                         ),
-                    singleLine = true
+                    singleLine = true,
+                    trailingIcon = {
+                        if(urlValue.isNotEmpty())
+                        {
+                            Icon(
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = null,
+                                modifier = Modifier.clickable { urlValue = "" }
+                            )
+                        }
+                    }
                 )
                 Text(
                     text = stringResource(id = R.string.card_required),
@@ -98,6 +110,7 @@ fun Content(modifier: Modifier = Modifier) {
                 )
                 var passwordValue by remember{ mutableStateOf("") }
                 var isCheckBoxChecked by remember { mutableStateOf(false) }
+                var isPasswordVisibility by remember { mutableStateOf(false) }
                 OutlinedTextField(
                     value = passwordValue,
                     onValueChange = { password -> passwordValue = password},
@@ -106,13 +119,29 @@ fun Content(modifier: Modifier = Modifier) {
                     },
                     singleLine = true,
                     enabled = isCheckBoxChecked,
+                    visualTransformation =
+                        if(isPasswordVisibility)
+                            VisualTransformation.None
+                        else
+                            PasswordVisualTransformation(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
                             top = dimensionResource(id = R.dimen.common_margin_default),
                             start = dimensionResource(id = R.dimen.common_margin_default),
                             end = dimensionResource(id = R.dimen.common_margin_default)
+                        ),
+                    trailingIcon = {
+                        Icon(
+                            painter =
+                                if (isPasswordVisibility) 
+                                    painterResource(id = R.drawable.ic_visibility_off)
+                                else
+                                    painterResource(id = R.drawable.ic_visibility),
+                            contentDescription = null,
+                            modifier = Modifier.clickable { isPasswordVisibility = !isPasswordVisibility }
                         )
+                    }
                 )
                 Row (verticalAlignment = Alignment.CenterVertically){
                     Checkbox(
