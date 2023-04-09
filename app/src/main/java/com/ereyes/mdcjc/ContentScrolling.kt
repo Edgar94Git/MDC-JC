@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +39,7 @@ fun ContentPreview() {
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun Content(modifier: Modifier = Modifier) {
     Column(
@@ -185,6 +186,28 @@ fun Content(modifier: Modifier = Modifier) {
                     valueRange = 0f..10f,
                     steps = 8
                 )
+                val emailValue by remember{ mutableStateOf("ereyes@gmail.com") }
+                var cbVisible by remember{ mutableStateOf(true) }
+                if(cbVisible){
+                    Chip(
+                        onClick = {
+                            Toast.makeText(context, emailValue, Toast.LENGTH_SHORT).show()
+                        },
+                        modifier = Modifier
+                            .padding(
+                                start = dimensionResource(id = R.dimen.common_padding_default)
+                            )
+                    ) {
+                        Text(text = emailValue)
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(dimensionResource(id = R.dimen.common_padding_default))
+                                .clickable { cbVisible = false }
+                        )
+                    }
+                }
             }
         }
     }
