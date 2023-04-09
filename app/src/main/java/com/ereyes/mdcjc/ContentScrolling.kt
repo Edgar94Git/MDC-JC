@@ -149,6 +149,17 @@ fun Content(modifier: Modifier = Modifier) {
                         onCheckedChange = {isChecked -> isCheckBoxChecked = isChecked}
                     )
                     Text(text = stringResource(id = R.string.card_enable_password))
+                    Spacer(modifier = Modifier.weight(1f, true))
+                    Text(text = stringResource(id = R.string.hide_fab))
+                    var isSwitchChecked by remember { mutableStateOf(false) }
+                    Switch(
+                        checked = isSwitchChecked,
+                        onCheckedChange = { checked -> isSwitchChecked = checked },
+                        modifier = Modifier
+                            .padding(
+                                end = dimensionResource(id = R.dimen.common_margin_default)
+                            )
+                    )
                 }
             }
         }
