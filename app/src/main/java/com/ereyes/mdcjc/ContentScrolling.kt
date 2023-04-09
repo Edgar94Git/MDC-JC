@@ -1,5 +1,6 @@
 package com.ereyes.mdcjc
 
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -10,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -163,12 +165,22 @@ fun Content(modifier: Modifier = Modifier) {
                 }
                 var sliderValue by remember { mutableStateOf(6f) }
                 var textValue by remember { mutableStateOf("") }
-                Text(text = textValue)
+                var context = LocalContext.current
+                Text(
+                    text = textValue,
+                    modifier = Modifier.
+                        padding(
+                            start = dimensionResource(id = R.dimen.common_padding_default)
+                        )
+                )
                 Slider(
                     value = sliderValue,
                     onValueChange = {
                         value -> sliderValue = value
                         textValue = "Val: ${value.toInt()}"
+                    },
+                    onValueChangeFinished = {
+                        Toast.makeText(context, textValue, Toast.LENGTH_LONG).show()
                     },
                     valueRange = 0f..10f,
                     steps = 8
