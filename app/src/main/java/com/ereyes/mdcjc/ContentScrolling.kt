@@ -161,6 +161,18 @@ fun Content(modifier: Modifier = Modifier) {
                             )
                     )
                 }
+                var sliderValue by remember { mutableStateOf(6f) }
+                var textValue by remember { mutableStateOf("") }
+                Text(text = textValue)
+                Slider(
+                    value = sliderValue,
+                    onValueChange = {
+                        value -> sliderValue = value
+                        textValue = "Val: ${value.toInt()}"
+                    },
+                    valueRange = 0f..10f,
+                    steps = 8
+                )
             }
         }
     }
