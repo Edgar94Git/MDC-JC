@@ -7,6 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
@@ -95,6 +96,31 @@ fun Content(modifier: Modifier = Modifier) {
                         top = dimensionResource(id = R.dimen.common_margin_micro)
                     )
                 )
+                var passwordValue by remember{ mutableStateOf("") }
+                var isCheckBoxChecked by remember { mutableStateOf(false) }
+                OutlinedTextField(
+                    value = passwordValue,
+                    onValueChange = { password -> passwordValue = password},
+                    label = {
+                        Text(text = stringResource(id = R.string.card_password))
+                    },
+                    singleLine = true,
+                    enabled = isCheckBoxChecked,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = dimensionResource(id = R.dimen.common_margin_default),
+                            start = dimensionResource(id = R.dimen.common_margin_default),
+                            end = dimensionResource(id = R.dimen.common_margin_default)
+                        )
+                )
+                Row (verticalAlignment = Alignment.CenterVertically){
+                    Checkbox(
+                        checked = isCheckBoxChecked, 
+                        onCheckedChange = {isChecked -> isCheckBoxChecked = isChecked}
+                    )
+                    Text(text = stringResource(id = R.string.card_enable_password))
+                }
             }
         }
     }
