@@ -208,6 +208,14 @@ fun Content(modifier: Modifier = Modifier) {
                         )
                     }
                 }
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            vertical = dimensionResource(id = R.dimen.common_margin_middle),
+                            horizontal = dimensionResource(id = R.dimen.common_padding_default)
+                        )
+                )
             }
         }
     }
